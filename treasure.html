@@ -114,6 +114,64 @@
         </div>
         </div>
         </div>
+        <script>
+            ids = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14",
+                "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"]
+            var chestCount = 0;
+            var score = 0;
+            var lastCheck = 12;
+            var treasureLocation = 18;
+            function help() {
+                let result = ""
+                if ((Math.floor(lastCheck / 5) == 3.0) && (lastCheck % 5 == 3)) {
+                    var isWon = true
+                }
+                if (isWon) {
+                    result = "Sorry, no help available"
+                } else if (Math.floor(lastCheck / 5) == 3.0) {
+                    if (lastCheck > treasureLocation) {
+                        result = "left"
+                    } else if (lastCheck < treasureLocation) {
+                        result = "right"
+                    }
+                } else if (lastCheck % 5 == 3) {
+                    if (lastCheck > treasureLocation) {
+                        result = "up"
+                    } else if (lastCheck < treasureLocation) {
+                        result = "down"
+                    }
+                } else {
+                    result = "Sorry, no help available"
+                }
+                document.getElementById('help').innerText = result
+                score += 2
+                document.getElementById('score').innerText = "Score is: " + score
+            }
     
+            function check(position) {
+                let imageID = ids[position]
+                if (position == treasureLocation) {
+                    document.getElementById(imageID).src = 'treasure.jpg'
+                    score++
+                } else {
+                    document.getElementById(imageID).src = 'treasure chest.jpg'
+                }
+                chestCount++;
+                document.getElementById('chests').innerText = "Number of chests: " + chestCount;
+                document.getElementById('score').innerText = "Score is: " + score;
+                lastCheck = position;
+            }
+    
+            function reset() {
+                var chestCount = 0;
+                var score = 0;
+                var lastCheck = 12;
+                var treasureLocation = generateRandomIntegerInRange(0, 24);
+            }
+    
+            function generateRandomIntegerInRange(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+        </script>
 </body>
 </html>
