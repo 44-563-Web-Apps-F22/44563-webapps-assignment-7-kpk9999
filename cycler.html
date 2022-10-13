@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Cycler Page</title>
+
+    <title>cycler</title>
     <style>
         .flex-container {
             display: flex;
             flex-direction: row;
-            background-color: green
+            background-color: green;
         }
 
         .flex-container>div {
-            background-color: silver;
+            /*div children of the flex container*/
+            background-color:silver;
             margin: 10px;
             padding: 20px;
             font-size: 30px;
         }
 
+        /* Responsive layout */
         @media (max-width: 600px) {
             .flex-container {
                 flex-direction: column;
@@ -24,77 +26,54 @@
             }
         }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
-        crossorigin="anonymous"></script>
 </head>
-
 <body>
-    <h1>KPK builds a cycler</h1>
-    <br>
+    <h2>KPK build a cycler</h2>
+    <label for="name">Input Element: </label><input id="name" type="text"></input><br><br>
     <div class="flex-container" id="target">
-        <div class="cycler">row item 1</div>
-        <div class="cycler">row item 2</div>
-        <div class="cycler">row item 3</div>
-    </div><br>
-    <label for="inputElement">Enter Number: <br></label>
-    <input type="text" name="input" id="inputElement" value="">
-    <br>
-
-    <div class="container text-center">
-        <button class="btn btn-warning" type="submit" onclick="makeNewDiv()">Add Value</button>
-        <button class="btn btn-danger" type="submit" onclick="get()">Get</button>
-        <button class="btn btn-success" type="submit" onclick="spin()">Spin</button>
-        <button class="btn btn-success" type="submit" onclick="swap()">Swap</button>
+        <div class="cycler">cycler1</div>
+        <div class="cycler">cycler2</div>
+        <div class="cycler">cycler3</div>
     </div>
-    </div>
-
-    <script>
-        function makeNewDiv() {
-            let element = document.createElement("div")
-            let value = document.getElementById("inputElement").value
-
-            element.innerHTML = value
-            element.className = "cycler"
-
-            let container = document.getElementById("target")
-            container.appendChild(element)
-        }
-    </script>
-    <script>
-        function get() {
-            let cyclerItems = document.getElementsByClassName("cycler")
-            if (cyclerItems.length > 0) {
-                cyclerItems[cyclerItems.length - 1].remove()
-            }
-        }
-
-        function spin() {
-            let cyclerItems = document.getElementsByClassName("cycler")
-            if (cyclerItems.length > 1) {
-                removedItem = cyclerItems[cyclerItems.length - 1]
-                cyclerItems[cyclerItems.length - 1].remove()
-                let container = document.getElementById("target")
-                container.insertBefore(removedItem, container.firstChild)
-            }
-        }
-//bonus
-        function swap() {
-            let cyclerItems = document.getElementsByClassName('cycler');
-            let cyclersSize = cyclerItems.length;
-            let nodeA = cyclerItems[Math.round(Math.random() * (cyclersSize - 1))]
-            let nodeB = cyclerItems[Math.round(Math.random() * (cyclersSize - 1))]
-            const parentA = nodeA.parentNode;
-            const siblingA = nodeA.nextSibling === nodeB ? nodeA : nodeA.nextSibling;
-            nodeB.parentNode.insertBefore(nodeA, nodeB);
-            parentA.insertBefore(nodeB, siblingA);
-        }
-    </script>
+    <button type="button" class="btn btn-primary" onclick="makeNewDiv()" style="color:orange; background-color: silver;">Add
+        Value</button>
+    <button type="button" class="btn btn-primary" onclick="get()"
+        style="color:red; background-color: silver;">Get</button>
+    <button type="button" class="btn btn-primary" onclick="spin()"
+        style="color: green; background-color: silver;">Spin</button>
 </body>
+<script>
+    function makeNewDiv() {
+        let element = document.createElement("div");
+        element.innerHTML = document.getElementById("name").value;
+        element.className = "cycler";
+        document.getElementById('target').appendChild(element)
+    }
+    function get() {
+        var cyclerItems = document.getElementsByClassName('cycler');
+        if (cyclerItems.length > 0) {
+            cyclerItems[cyclerItems.length - 1].remove();
+        }
+
+    }
+    function spin() {
+        let cyclerItems = document.getElementsByClassName('cycler');
+        let cyclersSize = cyclerItems.length;
+        if (cyclersSize == 0 || cyclersSize == 1) {
+            alert("No Items in the cycler to spin");
+            return;
+        }
+        else {
+            let removedItem = cyclerItems[cyclerItems.length - 1]
+            cyclerItems[cyclerItems.length - 1].remove();
+            document.getElementById('target').insertBefore(removedItem, document.getElementById('target').firstChild);
+        }
+    }
+    
+                
+
+
+       
+</script>
 
 </html>
